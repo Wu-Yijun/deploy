@@ -40,15 +40,14 @@ jobs:
 
       - name: archive files
         run: |
-          cd dist
           tar \
             --dereference --hard-dereference \
-            --directory "$INPUT_PATH" \
-            -cvf "../artifact.tar" \
+            --directory "./dist" \
+            -cf "artifact.tar" \
             --exclude=.git \
             --exclude=.github \
             --exclude=".[^/]*" \
-            .
+            . > /dev/null 2>&1
         
       - name: Upload artifact
         uses: actions/upload-artifact@v4
