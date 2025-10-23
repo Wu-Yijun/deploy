@@ -39,9 +39,8 @@ jobs:
         run: node ./.github/workflows/random_file_gen.ts
         
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v4
         with:
-          name: github-pages
           path: ./dist
   
   # Deploy job
