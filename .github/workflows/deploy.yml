@@ -26,6 +26,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: "npm"
       - name: Checkout
         uses: actions/checkout@v5
       - name: Get file
@@ -47,3 +52,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      # Step to delete the artifact after successful deployment
+      - name: Delete build artifact
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          # The name of the artifact to delete
+          name: github-pages
