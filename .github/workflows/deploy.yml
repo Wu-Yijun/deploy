@@ -43,11 +43,11 @@ jobs:
           tar \
             --dereference --hard-dereference \
             --directory "$INPUT_PATH" \
-            -cf "artifact.tar" \
+            -cvf "artifact.tar" \
             --exclude=.git \
             --exclude=.github \
             --exclude=".[^/]*" \
-            ./dist/ > /dev/null 2>&1
+            ./dist/
         
       - name: Upload artifact
         uses: actions/upload-artifact@v4
