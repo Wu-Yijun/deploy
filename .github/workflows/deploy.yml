@@ -26,15 +26,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node
-        uses: actions/setup-node@v5
-        with:
-          node-version: "24"
-          cache: "npm"
       - name: Checkout
         uses: actions/checkout@v5
+        
       - name: Get file
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         run: node ./.github/workflows/random_file_gen.ts
+        
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
