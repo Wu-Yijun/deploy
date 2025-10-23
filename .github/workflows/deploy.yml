@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 24
-          cache: 'none'  # 关键点：禁用包管理缓存
+          package-manager-cache: false
           
       - name: Get file
         run: node ./.github/workflows/random_file_gen.ts
