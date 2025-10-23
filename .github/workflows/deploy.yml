@@ -31,8 +31,11 @@ jobs:
         
       - name: Get file
         run: |
-          which node
-          node --experimental-strip-types ./.github/workflows/random_file_gen.ts
+          sudo apt install nvm
+          nvm install 24
+          nvm use 24
+          node -v
+          node ./.github/workflows/random_file_gen.ts
         
       - name: Upload artifact
         uses: actions/upload-artifact@v4
