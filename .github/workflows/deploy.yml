@@ -44,7 +44,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: Wu-Yijun/actions/.github/actions/react-apk@main
+        uses: Wu-Yijun/actions/.github/actions/react-apk/action@main
         with:
           SECRETS_ACCESS_PAT: ${{ secrets.SECRETS_ACCESS_PAT }}
           AGE_PRIVATE_KEY: ${{ secrets.AGE_PRIVATE_KEY }}
