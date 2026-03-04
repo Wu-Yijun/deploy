@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-          
+
       - name: Pull Files
         uses: actions/checkout@v6
         with:
@@ -39,6 +39,12 @@ jobs:
           lfs: true
           path: src
           token: ${{ secrets.DEPLOY_ASSETS_READ_PAT }}
+          
+      - name: Setup Node.js 24 (no npm project)
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          package-manager-cache: false
       
       - name: Generate Test Files
         run: |
