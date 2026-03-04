@@ -24,6 +24,9 @@ on:
 jobs:
   # Build job
   build:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,40 +38,10 @@ jobs:
           node-version: 24
           package-manager-cache: false
           
-      - name: Get files
-        run: node ./.github/workflows/random_file_gen.ts
-
-      - name: archive files
+      - name: Generate Files
         run: |
-          tar \
-            --dereference --hard-dereference \
-            --directory "./dist" \
-            -cf "artifact.tar" \
-            --exclude=.git \
-            --exclude=.github \
-            --exclude=".[^/]*" \
-            . > /dev/null 2>&1
-        
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages
-          path: artifact.tar
-  
-  # Deploy job
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+          node ./.github/workflows/random_file_gen.ts --out dist/public --depth 2
+          node ./.github/workflows/random_file_gen.ts --out dist/private
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
-      # Step to delete the artifact after successful deployment
-      - name: Delete build artifact
-        uses: geekyeggo/delete-artifact@v5
-        with:
-          # The name of the artifact to delete
-          name: github-pages
+        uses: Wu-Yijun/actions/.github/actions/deploy@main
