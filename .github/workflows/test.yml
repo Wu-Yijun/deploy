@@ -1,0 +1,22 @@
+
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: Wu-Yijun/actions/.github/actions/react-apk@main
+        with: 
+          SECRETS_ACCESS_PAT: ${{ secrets.SECRETS_ACCESS_PAT }}
+          AGE_PRIVATE_KEY: ${{ secrets.AGE_PRIVATE_KEY }}
+          app_name: 记账本
+          app_package: com.aluria.ledger
+          app_version: 0.0.1
