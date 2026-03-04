@@ -48,12 +48,12 @@ jobs:
       
       - name: Generate Test Files
         run: |
-          node ./.github/workflows/random_file_gen.ts --out dist/public/repo1 --depth 2
-          node ./.github/workflows/random_file_gen.ts --out dist/public/public/repo2 --depth 2
-          node ./.github/workflows/random_file_gen.ts --out dist/private
-          node ./.github/workflows/random_file_gen.ts --out dist/encrypted
-          node ./.github/workflows/random_file_gen.ts --out dist/gist --depth 0
-          node ./.github/workflows/random_file_gen.ts --out dist/index
+          node ./.github/workflows/random_file_gen.ts --out src/public/repo1 --depth 2
+          node ./.github/workflows/random_file_gen.ts --out src/public/public/repo2 --depth 2
+          node ./.github/workflows/random_file_gen.ts --out src/private
+          node ./.github/workflows/random_file_gen.ts --out src/encrypted
+          node ./.github/workflows/random_file_gen.ts --out src/gist --depth 0
+          node ./.github/workflows/random_file_gen.ts --out src/index
 
       - name: move files
         run: |
