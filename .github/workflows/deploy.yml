@@ -2,12 +2,6 @@
 
 name: Deploy Static Site to Pages
 
-# Sets permissions for the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 # Allow only one concurrent deployment, skipping runs queued between the runs of this workflow.
 # If a UI-driven deployment is queued, it will be canceled and replaced by a new one.
 concurrency:
@@ -24,6 +18,11 @@ on:
 jobs:
   # Build job
   build:
+    # Sets permissions for the GITHUB_TOKEN to allow deployment to GitHub Pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -42,6 +41,7 @@ jobs:
         run: |
           node ./.github/workflows/random_file_gen.ts --out dist/public --depth 2
           node ./.github/workflows/random_file_gen.ts --out dist/private
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: Wu-Yijun/actions/.github/actions/deploy/action@main
+          
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: Wu-Yijun/actions/.github/actions/deploy@main
