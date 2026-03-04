@@ -44,4 +44,4 @@ jobs:
           node ./.github/workflows/random_file_gen.ts --out dist/private
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: Wu-Yijun/actions/.github/actions/deploy@main
+        uses: Wu-Yijun/actions/.github/actions/deploy/action@main
