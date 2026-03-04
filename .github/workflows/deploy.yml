@@ -28,20 +28,42 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      # - name: Checkout
+      #   uses: actions/checkout@v5
         
-      - name: Setup Node.js 24 (no npm project)
-        uses: actions/setup-node@v5
-        with:
-          node-version: 24
-          package-manager-cache: false
+      # - name: Setup Node.js 24 (no npm project)
+      #   uses: actions/setup-node@v5
+      #   with:
+      #     node-version: 24
+      #     package-manager-cache: false
           
-      - name: Generate Files
+      - name: Pull Files
+        uses: actions/checkout@v6
+        with:
+          repository: Wu-Yijun/deploy-assets
+          fetch-depth: 1
+          lfs: true
+          path: src
+          token: ${{ secrets.DEPLOY_ASSETS_READ_PAT }}
+      
+      - name: Generate Test Files
         run: |
-          node ./.github/workflows/random_file_gen.ts --out dist/public --depth 2
+          node ./.github/workflows/random_file_gen.ts --out dist/public/repo1 --depth 2
+          node ./.github/workflows/random_file_gen.ts --out dist/public/public/repo2 --depth 2
           node ./.github/workflows/random_file_gen.ts --out dist/private
+          node ./.github/workflows/random_file_gen.ts --out dist/encrypted
+          node ./.github/workflows/random_file_gen.ts --out dist/gist --depth 0
+          node ./.github/workflows/random_file_gen.ts --out dist/index
 
+      - name: move files
+        run: |
+          mkdir dist
+          mv src/gist dist/
+          mv src/public/* dist/
+          mv src/private dist/
+          mv src/encrypted dist/
+          mv src/index/* dist/
+      
       - name: Deploy to GitHub Pages
         id: deployment
         uses: Wu-Yijun/actions/.github/actions/deploy@main
